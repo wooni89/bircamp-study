@@ -1,7 +1,7 @@
 package bitcamp;
 
-public class test1 {
-  // public static void main(String[] args) {
-
-  // }
+class Test1 {
+  public static void main(String[] args) {
+    
+  }
 }
