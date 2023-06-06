@@ -12,8 +12,8 @@ public class Exam0431 {
           break; // break 소속된 현재 반복문을 멈춘다.
       }
       System.out.println();
+      if (i == 5)
+        break;
     }
   }
 }
-
-

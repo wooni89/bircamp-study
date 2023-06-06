@@ -8,9 +8,9 @@ public class Exam0320 {
     int sum = 0;
 
     // 1부터 100까지의 합은?
-    while (count < 100) {
-      //count++;
-      //sum += count; // sum = sum + count;
+    while (count < 500) {
+      // count++;
+      // sum += count; // sum = sum + count;
       sum += ++count;
     }
     System.out.printf("count=%d, sum=%d\n", count, sum);

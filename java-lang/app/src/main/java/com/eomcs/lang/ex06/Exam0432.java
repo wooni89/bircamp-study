@@ -19,5 +19,3 @@ public class Exam0432 {
     System.out.println("loop1 밖!");
   }
 }
-
-

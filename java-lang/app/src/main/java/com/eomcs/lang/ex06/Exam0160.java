@@ -10,9 +10,9 @@ public class Exam0160 {
     System.out.print("나이를 입력하세요? ");
     int age = keyScan.nextInt();
 
-    if (age < 8)
+    if (age < 8) {
       System.out.println("아동입니다.");
-    else {
+    } else {
       if (age < 14)
         System.out.println("어린이입니다.");
       else {
