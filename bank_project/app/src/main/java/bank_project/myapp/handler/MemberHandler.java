@@ -56,6 +56,20 @@ public class MemberHandler {
     }
   }
 
+  public static void viewAccount() {
+    String memberNo = Prompt.inputStirng("번호? ");
+    for (int i = 0; i < length; i++) {
+      if (no[i] == Integer.parseInt(memberNo)) {
+        System.out.printf("이름 : %s\n", name[i]);
+        System.out.printf("계좌번호 : %d\n", accNum[i]);
+        System.out.printf("은행이름 : %s\n", bankName[i]);
+        System.out.printf("잔고 : %d\n", balance[i]);
+        return;
+      }
+    }
+    System.out.println("해당 번호의 회원이 없습니다.");
+  }
+
   public static boolean available() {
     return length < MAX_SIZE;
   }
