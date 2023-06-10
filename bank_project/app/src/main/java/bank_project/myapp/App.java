@@ -8,37 +8,31 @@ public class App {
   public static void main(String[] args) {
 
     printTitle();
+
     printMenu();
 
     while (true) {
-      String menuNo = Prompt.inputStirng("> ");
+      String menuNo = Prompt.inputStirng("메인> ");
       if (menuNo.equals("6")) {
         break;
       } else if (menuNo.equals("menu")) {
         printMenu();
       } else if (menuNo.equals("1")) { // 계좌개설
         MemberHandler.inputAccounts();
-      } else if (menuNo.equals("2")) {
-
-      } else if (menuNo.equals("3")) {
-
+      } else if (menuNo.equals("2")) { // 입금
+        // MemberHandler.deposit();
+      } else if (menuNo.equals("3")) { // 출금
+        // MemberHandler.withraw();
       } else if (menuNo.equals("4")) { // 계좌정보변경
         MemberHandler.updateAccount();
       } else if (menuNo.equals("5")) { // 잔고확인
         MemberHandler.printAccounts();
+      } else if (menuNo.equals("6")) {
+        MemberHandler.deleteMember();
       } else {
         System.out.println(menuNo);
       }
     }
-
-    // while (MemberHandler.available()) {
-    // MemberHandler.inputAccounts();
-    // if (!promptContinue()) {
-    // break;
-    // }
-    // }
-
-    // MemberHandler.printAccounts();
 
     Prompt.close();
 

@@ -2,26 +2,34 @@ package bitcamp.util;
 
 public class Calculator {
 
-  public static int result; // 스태틱 변수는 기본 값 0으로 초기화된다.
+  private int result = 0;
+  private static int result2 = 0;
 
-  public static void init(int a) {
-    result = a;
+  public int getResult() {
+    return this.result;
   }
 
-  public static void plus(int a) {
-    result += a;
+  public void init(int a) {
+    this.result = a;
   }
 
-  public static void minus(int a) {
-    result -= a;
+  public int plus(int a) {
+    return this.result += a;
+
   }
 
-  public static void multiple(int a) {
-    result *= a;
+  public int minus(int a) {
+    return this.result -= a;
+
   }
 
-  public static void divide(int a) {
-    result /= a;
+  public int multiple(int a) {
+    return this.result *= a;
+
+  }
+
+  public int divide(int a) {
+    return this.result /= a;
   }
 
 }

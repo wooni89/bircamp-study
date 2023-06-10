@@ -50,15 +50,4 @@ public class App {
 
   }
 
-  static boolean promptContinue() {
-
-    String response = Prompt.inputString("계속하시겠습니까? (Y/N)");
-    // equalsIgnoreCase = 대소문자를 구분하지 않음.
-    if (!"".equals(response) && !"Y".equalsIgnoreCase(response)) {
-      return false;
-
-    }
-    return true;
-  }
-
 }

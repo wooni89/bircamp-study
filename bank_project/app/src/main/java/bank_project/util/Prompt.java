@@ -11,9 +11,8 @@ public class Prompt {
     return scanner.nextLine();
   }
 
-  public static int inputIntStirng(String titleInt) {
-    System.out.println(titleInt);
-    return scanner.nextInt();
+  public static int inputInt(String title) {
+    return Integer.parseInt(inputStirng(title));
   }
 
   public static void close() {
