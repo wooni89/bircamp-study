@@ -8,10 +8,6 @@ public class MemberHandler {
   static final int MAX_SIZE = 100;
   static Member[] members = new Member[MAX_SIZE];
 
-  static final char MALE = 'M';
-  static final char FEMALE = 'W';
-
-  static int userId = 1;
   static int length = 0;
 
   public static void inputMember() {
@@ -21,11 +17,10 @@ public class MemberHandler {
     }
 
     Member m = new Member();
-    m.setName = (Prompt.inputString("이름"));
-    m.setEmail = (Prompt.inputString("이메일"));
-    m.setPassword = (Prompt.inputString("비밀번호"));
-    m.setGender = (inputGender((char) 0));
-    m.setNo = (userId++);
+    m.setName(Prompt.inputString("이름"));
+    m.setEmail(Prompt.inputString("이메일"));
+    m.setPassword(Prompt.inputString("비밀번호"));
+    m.setGender(inputGender((char) 0));
     members[length++] = m;
   }
 
@@ -40,8 +35,8 @@ public class MemberHandler {
 
     for (int i = 0; i < length; i++) {
       Member m = members[i];
-      System.out.printf("%d, %s, %s, %s\n", m.setNo, m.setName, m.setEmail,
-          toGenderString(m.setGender));
+      System.out.printf("%d, %s, %s, %s\n", m.getNo(), m.getName(), m.getEmail(),
+          toGenderString(m.getGender()));
 
     }
   }
@@ -51,10 +46,10 @@ public class MemberHandler {
     // 입력받은 번호를 가지고 배열에서 해당 회원을 찾아야 한다.
     for (int i = 0; i < length; i++) {
       Member m = members[i];
-      if (m.setNo == Integer.parseInt(memberNo)) {
-        System.out.printf("이름 : %s\n", m.setName);
-        System.out.printf("이메일 : %s\n", m.setEmail);
-        System.out.printf("성별 : %s\n", toGenderString(m.setGender));
+      if (m.getNo() == Integer.parseInt(memberNo)) {
+        System.out.printf("이름 : %s\n", m.getName());
+        System.out.printf("이메일 : %s\n", m.getEmail());
+        System.out.printf("성별 : %s\n", toGenderString(m.getGender()));
         // i번째 저장된 회원정보출력
         return;
       }
@@ -70,14 +65,14 @@ public class MemberHandler {
     String memberNo = Prompt.inputString("번호 ? ");
     for (int i = 0; i < length; i++) {
       Member m = members[i];
-      if (m.setNo == Integer.parseInt(memberNo)) {
-        System.out.printf("이름(%s) ?", m.setName);
-        m.setName = Prompt.inputString("");
-        System.out.printf("이메일(%s) ?", m.setEmail);
-        m.setEmail = Prompt.inputString("");
+      if (m.getNo() == Integer.parseInt(memberNo)) {
+        System.out.printf("이름(%s) ?", m.getName());
+        m.setName(Prompt.inputString(""));
+        System.out.printf("이메일(%s) ?", m.getName());
+        m.setEmail(Prompt.inputString(""));
         System.out.printf("새 비밀번호?");
-        m.setPassword = Prompt.inputString("");
-        m.setGender = inputGender(m.setGender);
+        m.setPassword(Prompt.inputString(""));
+        m.setGender(inputGender(m.getGender()));
         return;
       }
     }
@@ -96,9 +91,9 @@ public class MemberHandler {
 
       switch (menuNo) {
         case "1":
-          return MALE;
+          return Member.MALE;
         case "2":
-          return FEMALE;
+          return Member.FEMALE;
         default:
           System.out.println("무효한 번호 입니다.");
       }
@@ -125,7 +120,7 @@ public class MemberHandler {
   private static int indexOf(int memberNo) {
     for (int i = 0; i < length; i++) {
       Member m = members[i];
-      if (m.setNo == memberNo) {
+      if (m.getNo() == memberNo) {
         return i;
       }
     }
