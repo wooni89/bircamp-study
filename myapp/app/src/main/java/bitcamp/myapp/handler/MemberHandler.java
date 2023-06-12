@@ -1,7 +1,7 @@
 package bitcamp.myapp.handler;
 
-import bitcamp.util.Prompt;
 import bitcamp.myapp.vo.Member;
+import bitcamp.util.Prompt;
 
 public class MemberHandler {
 
@@ -21,11 +21,11 @@ public class MemberHandler {
     }
 
     Member m = new Member();
-    m.name = Prompt.inputString("이름");
-    m.email = Prompt.inputString("이메일");
-    m.password = Prompt.inputString("비밀번호");
-    m.gender = inputGender((char) 0);
-    m.no = userId++;
+    m.setName = (Prompt.inputString("이름"));
+    m.setEmail = (Prompt.inputString("이메일"));
+    m.setPassword = (Prompt.inputString("비밀번호"));
+    m.setGender = (inputGender((char) 0));
+    m.setNo = (userId++);
     members[length++] = m;
   }
 
@@ -40,8 +40,8 @@ public class MemberHandler {
 
     for (int i = 0; i < length; i++) {
       Member m = members[i];
-      System.out.printf("%d, %s, %s, %s\n",
-          m.no, m.name, m.email, toGenderString(m.gender));
+      System.out.printf("%d, %s, %s, %s\n", m.setNo, m.setName, m.setEmail,
+          toGenderString(m.setGender));
 
     }
   }
@@ -51,10 +51,10 @@ public class MemberHandler {
     // 입력받은 번호를 가지고 배열에서 해당 회원을 찾아야 한다.
     for (int i = 0; i < length; i++) {
       Member m = members[i];
-      if (m.no == Integer.parseInt(memberNo)) {
-        System.out.printf("이름 : %s\n", m.name);
-        System.out.printf("이메일 : %s\n", m.email);
-        System.out.printf("성별 : %s\n", toGenderString(m.gender));
+      if (m.setNo == Integer.parseInt(memberNo)) {
+        System.out.printf("이름 : %s\n", m.setName);
+        System.out.printf("이메일 : %s\n", m.setEmail);
+        System.out.printf("성별 : %s\n", toGenderString(m.setGender));
         // i번째 저장된 회원정보출력
         return;
       }
@@ -70,14 +70,14 @@ public class MemberHandler {
     String memberNo = Prompt.inputString("번호 ? ");
     for (int i = 0; i < length; i++) {
       Member m = members[i];
-      if (m.no == Integer.parseInt(memberNo)) {
-        System.out.printf("이름(%s) ?", m.name);
-        m.name = Prompt.inputString("");
-        System.out.printf("이메일(%s) ?", m.email);
-        m.email = Prompt.inputString("");
+      if (m.setNo == Integer.parseInt(memberNo)) {
+        System.out.printf("이름(%s) ?", m.setName);
+        m.setName = Prompt.inputString("");
+        System.out.printf("이메일(%s) ?", m.setEmail);
+        m.setEmail = Prompt.inputString("");
         System.out.printf("새 비밀번호?");
-        m.password = Prompt.inputString("");
-        m.gender = inputGender(m.gender);
+        m.setPassword = Prompt.inputString("");
+        m.setGender = inputGender(m.setGender);
         return;
       }
     }
@@ -92,10 +92,7 @@ public class MemberHandler {
       label = String.format("성별(%s)?\n", toGenderString(gender));
     }
     while (true) {
-      String menuNo = Prompt.inputString(label +
-          "1. 남자\n" +
-          "2. 여자\n" +
-          "> ");
+      String menuNo = Prompt.inputString(label + "1. 남자\n" + "2. 여자\n" + "> ");
 
       switch (menuNo) {
         case "1":
@@ -128,7 +125,7 @@ public class MemberHandler {
   private static int indexOf(int memberNo) {
     for (int i = 0; i < length; i++) {
       Member m = members[i];
-      if (m.no == memberNo) {
+      if (m.setNo == memberNo) {
         return i;
       }
     }
