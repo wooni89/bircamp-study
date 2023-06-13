@@ -8,7 +8,7 @@ public class Board {
   private String content;
   private String writer;
   private String password;
-  private int viewCount;
+  private int viewCount = 0;
   private long createdDate; // ms로 저장됨
 
   public Board() {
@@ -52,9 +52,10 @@ public class Board {
     return viewCount;
   }
 
-  public void setViewCount(int viewCount) {
-    this.viewCount = viewCount;
+  public int getViewCountAdd() {
+    return viewCount += 1;
   }
+
 
   public long getCreatedDate() {
     return createdDate;
