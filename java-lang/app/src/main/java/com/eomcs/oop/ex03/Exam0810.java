@@ -15,10 +15,10 @@ public class Exam0810 {
     // - 기본 생성자가 생성되어 앞 부분에 삽입된다.
     // - 바이트코드(Exam0810$A.class)를 확인해 보라!
     //
-    // public A() {
-    //   a = 100;
-    //   b = 200;
-    // }
+    public A() {
+      a = 200;
+      b = 300;
+    }
   }
 
   public static void main(String[] args) {
@@ -26,5 +26,3 @@ public class Exam0810 {
     System.out.printf("a=%d, b=%d, c=%d\n", obj1.a, obj1.b, obj1.c);
   }
 }
-
-

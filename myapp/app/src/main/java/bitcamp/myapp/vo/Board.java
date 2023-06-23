@@ -3,17 +3,34 @@ package bitcamp.myapp.vo;
 public class Board {
 
   private static int boardNo = 1;
+
   private int no;
   private String title;
   private String content;
   private String writer;
   private String password;
   private int viewCount = 0;
-  private long createdDate; // ms로 저장됨
+  private long createdDate;
 
   public Board() {
     this.no = boardNo++;
     this.createdDate = System.currentTimeMillis();
+  }
+
+  public Board(int no) {
+    this.no = no;
+  }
+
+  public boolean equals(Object obj) {
+    if (obj == null) {
+      return false;
+    }
+
+    if (this.getClass() != obj.getClass()) {
+      return false;
+    }
+
+    return true;
   }
 
   public int getNo() {
@@ -52,10 +69,9 @@ public class Board {
     return viewCount;
   }
 
-  public int getViewCountAdd() {
-    return viewCount += 1;
+  public void setViewCount(int viewCount) {
+    this.viewCount = viewCount;
   }
-
 
   public long getCreatedDate() {
     return createdDate;

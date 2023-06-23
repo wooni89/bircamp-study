@@ -7,23 +7,61 @@ public class Member {
   public static final char MALE = 'M';
   public static final char FEMALE = 'W';
 
-  // 인스턴스 필드는 각각 개별적으로 유지해야 하는 값을 저장할 때 사용한다.
-  // new 명령을 통해 변수를 Heap영역에 생성한다.
-
   private int no;
   private String name;
   private String email;
   private String password;
   private char gender;
 
-  // 생성자는 인스턴스를 생성한 후 필드를 초기화 시키는 일을 한다.
-  // 인스턴스를 사용할 때 문제가 없도록 유효한 값으로 초기화를 시킨다.
-  // 기본 생성자는 개발자가 생성자를 정의하지 않을때
-  // 컴파일러가 추가해주는 생성자다.
-  // 물론 개발자가 직접 추가할 수도 있다.
-
   public Member() {
     this.no = userId++;
+  }
+
+
+  // 같은 기능을 수행하는 생성자가 위에 있다.
+  // 다만 파라미터가 다를 뿐이다.
+  // 생성자 오버로딩(Overloading)
+  public Member(int no) {
+    this.no = no;
+  }
+
+
+  // Object의 equals()는 Member 인스턴스를 비교하는데 적합하지 않다.
+  // Object의 equals()는 단순히 인스턴스의 주소가 같은지 비교하기 떄문.
+  // 우리가 원하는 것은 인스턴스의 주소가 다르더라도 두인스턴스는 같은것으로 처리하는것.
+  // 그래서 수퍼 클래스의 equlas를 재정의 한것
+  // 이것을 Overriding 이라 부른다.
+  public boolean equals(Object obj) {
+    if (obj == null) {
+      return false;
+    }
+    if (this.getClass() != obj.getClass()) {
+      return false;
+    }
+
+    // 위 조건에서 this가 가르키는 인스턴스의 클래스와 파라미터 obj가 가르키는 인스턴스의 클래스가 같다고 결론이 나서
+    // 다음과 같이 obj를 Member 타입으로 형변환 한다.
+    // Member m = (Member) obj;
+    // if (this.getNo() != m.getNo()) {
+    // return false;
+    // }
+    //
+    // if (this.getName() != null && this.getName().equals(m.getEmail())) {
+    // return false;
+    // }
+    //
+    // if (this.getEmail() != null && this.getEmail().equals(m.getEmail())) {
+    // return false;
+    // }
+    //
+    // if (this.getPassword() != null && this.getPassword().equals(m.getPassword())) {
+    // return false;
+    // }
+    //
+    // if (this.getGender() != m.getGender()) {
+    // return false;
+    // }
+    return true;
   }
 
   public int getNo() {

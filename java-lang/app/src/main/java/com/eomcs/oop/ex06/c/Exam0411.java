@@ -40,14 +40,9 @@ public class Exam0411 {
 
   public static void main(String[] args) {
     A3 obj = new A3();
-    obj.test();  // A2의 test() 호출
+    obj.test(); // A2의 test() 호출
+    // A3 클래스를 호출하여 실제 찾아가는것은 A3클래스이다.
   }
 }
-
-
-
-
-
-
 
 

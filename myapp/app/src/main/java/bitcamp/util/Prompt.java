@@ -1,25 +1,35 @@
 package bitcamp.util;
 
+import java.io.InputStream;
 import java.util.Scanner;
 
-//클래스 이름이 메소드와 같으면 메소드 이름을 받아오는 값의 함수로 변경해준다.
+// 클래스 이름이 메소드와 같으면 메소드 이름을 받아오는 값의 함수로 변경해준다.
 public class Prompt {
 
-  static Scanner scanner = new Scanner(System.in);
+  private Scanner scanner = new Scanner(System.in);
 
-  public static String inputString(String title) {
+  // default constructor 정의
+  public Prompt() {
+    scanner = new Scanner(System.in);
+  }
 
-    System.out.print(title);
-    return scanner.nextLine();
+  // 다른 입력 도구와 연결한다면
+  public Prompt(InputStream in) {
+    scanner = new Scanner(in);
+  }
+
+  public String inputString(String title, Object... args) {
+    System.out.printf(title, args);
+    return this.scanner.nextLine();
 
   }
 
-  public static int inputInt(String title) {
-    return Integer.parseInt(inputString(title));
+  public int inputInt(String title, Object... args) {
+    return Integer.parseInt(inputString(title, args));
   }
 
-  public static void close() {
-    scanner.close();
+  public void close() {
+    this.scanner.close();
   }
 
 }
