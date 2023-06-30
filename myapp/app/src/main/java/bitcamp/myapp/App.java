@@ -1,11 +1,14 @@
 package bitcamp.myapp;
 
-import java.io.FileInputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import bitcamp.io.DataInputStream;
-import bitcamp.io.DataOutputStream;
 import bitcamp.myapp.handler.BoardAddListener;
 import bitcamp.myapp.handler.BoardDeleteListener;
 import bitcamp.myapp.handler.BoardDetailListener;
@@ -20,6 +23,7 @@ import bitcamp.myapp.handler.MemberDetailListener;
 import bitcamp.myapp.handler.MemberListListener;
 import bitcamp.myapp.handler.MemberUpdateListener;
 import bitcamp.myapp.vo.Board;
+import bitcamp.myapp.vo.CsvObject;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.Menu;
@@ -46,7 +50,6 @@ public class App {
 
   }
 
-
   static void printTitle() {
     System.out.println("나의 목록 관리 시스템");
     System.out.println("-------------------------");
@@ -59,24 +62,23 @@ public class App {
     loadData();
 
     mainMenu.execute(prompt);
-
     saveData();
 
     prompt.close();
   }
 
   private void loadData() {
-    loadMember();
-    loadBoard("board.data", boardList);
-    loadBoard("reading.data", readingList);
 
+    loadCsv("member.csv", memberList, Member.class);
+    loadCsv("board.csv", boardList, Board.class);
+    loadCsv("reading.csv", readingList, Board.class);
 
   }
 
   private void saveData() {
-    saveMember();
-    saveBoard("board.data", boardList);
-    saveBoard("reading.data", readingList);
+    saveCsv("member.csv", memberList);
+    saveCsv("board.csv", boardList);
+    saveCsv("reading.csv", readingList);
   }
 
   private void prepareMenu() {
@@ -113,103 +115,46 @@ public class App {
 
   }
 
-  private void loadMember() {
+
+  @SuppressWarnings("unchecked")
+  private <T extends CsvObject> void loadCsv(String filename, List<T> list, Class<T> clazz) {
+
     try {
-      DataInputStream in = new DataInputStream("member.data");
+      Method factoryMethod = clazz.getDeclaredMethod("fromCsv", String.class);
 
-      int size = in.readShort();
+      FileReader in0 = new FileReader(filename);
+      BufferedReader in = new BufferedReader(in0); // Decorator역할 수행
 
-      for (int i = 0; i < size; i++) {
-        Member member = new Member();
-        member.setNo(in.readInt());
-        member.setName(in.readUTF());
-        member.setEmail(in.readUTF());
-        member.setPassword(in.readUTF());
-        member.setGender(in.readChar());
-        memberList.add(member);
+      String line = null;
+
+      while ((line = in.readLine()) != null) {
+        list.add((T) factoryMethod.invoke(null, line)); // Reflection API를 사용하여 스태틱 메서드 호출
+        // list.add(Member.fromCsv(line)); //직접 스태틱 매서드를 호출
       }
-
-      // 데이터를 로딩한 이후 마지막에 번호증가
-      Member.userId = memberList.get(memberList.size() - 1).getNo() + 1;
 
       in.close();
 
     } catch (Exception e) {
-      System.out.println("회원정보를 읽는 중 오류 발생");
+      System.out.println(filename + "파일 정보를 읽는 중 오류 발생");
     }
   }
 
-  private void saveMember() {
+
+  private void saveCsv(String filename, List<? extends CsvObject> list) {
     try {
-      DataOutputStream out = new DataOutputStream("member.data");
+      FileWriter out0 = new FileWriter(filename); // Decorator역할 수행
+      BufferedWriter out1 = new BufferedWriter(out0);
+      PrintWriter out = new PrintWriter(out1); // Decorator역할 수행
 
-      // 저장할 데이터의 개수를 먼저 출력한다.
-      out.write(memberList.size());
 
-      for (Member member : memberList) {
-        out.write(member.getNo());
-        out.writeUTF(member.getName());
-        out.writeUTF(member.getEmail());
-        out.writeUTF(member.getPassword());
-        out.writeChar(member.getGender());
+      for (CsvObject obj : list) {
+        out.println(obj.toCsvString()); // CsvObject규칙으로 정의된 toCsvStirng메서드를 가져온다.
       }
       out.close();
 
     } catch (Exception e) {
-      System.out.println("회원 정보를 저장하는 중 오류 발생!");
+      System.out.println(filename + "파일을 저장하는 중 오류 발생!");
     }
   }
-
-  private void loadBoard(String filename, List<Board> list) {
-
-    try {
-      DataInputStream in = new DataInputStream(filename);
-
-      int size = in.readShort();
-      
-      for (int i = 0; i < size; i++) {
-        Board board = new Board();
-        board.setNo(in.readInt());
-        board.setTitle(in.readUTF());
-        board.setContent(in.readUTF());
-        board.setWriter(in.readUTF());
-        board.setPassword(in.readUTF());
-        board.setViewCount(in.readInt());
-        board.setCreatedDate(in.readLong());
-        list.add(board);
-      }
-
-      Board.boardNo = Math.max(Board.boardNo, list.get(list.size() - 1).getNo() + 1);
-
-      in.close();
-
-    } catch (Exception e) {
-      System.out.println(filename + "회원정보를 읽는 중 오류 발생");
-    }
-  }
-
-  private void saveBoard(String filename, List<Board> list) {
-    try {
-      DataOutputStream out = new DataOutputStream(filename);
-
-      out.writeShort(list.size());
-
-      for (Board board : list) {
-        out.writeInt(board.getNo());
-        out.writeUTF(board.getTitle());
-        out.writeUTF(board.getContent());
-        out.writeUTF(board.getWriter());
-        out.writeUTF(board.getPassword());
-        out.writeInt(board.getViewCount());
-        out.writeLong(board.getCreatedDate());
-
-      }
-      out.close();
-
-    } catch (Exception e) {
-      System.out.println(filename + "파일정보를 저장하는 중 오류 발생!");
-    }
-  }
-
 
 }
