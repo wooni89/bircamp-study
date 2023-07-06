@@ -1,7 +1,6 @@
 // 인터페이스 필드
 package com.eomcs.oop.ex09.b;
 
-
 // 인터페이스 필드 선언
 interface MyInterface2 {
   // 인터페이스 필드는 public static final 이다.
@@ -30,16 +29,11 @@ public class Exam02 {
     System.out.println(MyInterface2.v5);
 
     // 인터페이스 필드는 상수 필드이기 때문에 값을 변경할 수 없다.
-    //    MyInterface2.v1 = 111; // 컴파일 오류!
-    //    MyInterface2.v2 = 222; // 컴파일 오류!
-    //    MyInterface2.v3 = 333; // 컴파일 오류!
-    //    MyInterface2.v4 = 444; // 컴파일 오류!
-    //    MyInterface2.v5 = 555; // 컴파일 오류!
+    // MyInterface2.v1 = 111; // 컴파일 오류!
+    // MyInterface2.v2 = 222; // 컴파일 오류!
+    // MyInterface2.v3 = 333; // 컴파일 오류!
+    // MyInterface2.v4 = 444; // 컴파일 오류!
+    // MyInterface2.v5 = 555; // 컴파일 오류!
   }
 
 }
-
-
-
-
-
