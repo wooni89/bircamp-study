@@ -25,7 +25,7 @@ public class MemberUpdateListener implements MemberActionListener {
     }
 
     m.setName(prompt.inputString("이름(%s) ?", m.getName()));
-    m.setEmail(prompt.inputString("이메일(%s) ?", m.getName()));
+    m.setEmail(prompt.inputString("이메일(%s) ?", m.getEmail()));
     m.setPassword(prompt.inputString("새 비밀번호?"));
     m.setGender(MemberActionListener.inputGender((char) 0, prompt));
 
